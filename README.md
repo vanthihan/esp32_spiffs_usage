@@ -1,11 +1,17 @@
-ESP-IDF template app
+ESP32 Flashing a Text file into SPIFFS partition
 ====================
 
-This is a template application to be used with [Espressif IoT Development Framework](https://github.com/espressif/esp-idf).
+/**************Command In Use**************************
+* flashing file into esp32's spiffs partition
+//put file need to gen into
+~/samba/workSpace/spiffs_test/data
 
-Please check [ESP-IDF docs](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for getting started instructions.
+//Genarate
+cd /home/kai/esp/mkspiffs_tool/mkspiffs
+./mkspiffs -c ~/samba/workSpace/spiffs_test/data/ -b 4096 -p 256 -s 0x100000 ~/samba/workSpace/spiffs_test/data/mobile_gestures.bin
 
-*Code in this repository is in the Public Domain (or CC0 licensed, at your option.)
-Unless required by applicable law or agreed to in writing, this
-software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied.*
+//Flash
+cd /home/kai/esp/esp-idf/components/esptool_py/esptool/
+python esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 921600 write_flash -z 0x210000 ~/samba/workSpace/spiffs_test/data/mobile_gestures.bin
+
+**************End Of Command In Use**************************/
